@@ -12,7 +12,7 @@
   </b>
   <br> <br>
 
-  <a href="" target="_blank">Paper</a>
+  <a href="https://arxiv.org/abs/2308.07104" target="_blank">Paper</a>
 
 ####
 </div>
