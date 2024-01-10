@@ -1,0 +1,70 @@
+GLOBAL:
+  NAME: ablation-train-raft-finetune
+  MIXED_PRECISION: false
+
+  SEED: 1234
+  CUDNN_ENABLED: true
+  ALLOW_TF32: true
+  NUM_THREADS: 16
+  NUM_WORKERS: 12
+
+
+TRAIN:
+  STAGE: chairs
+  RESTORE_CHECKPOINT: 
+  ADD_NOISE: true
+
+  NUM_STEPS: 250000
+  BATCH_SIZE: 10
+  IMAGE_SIZE: [368, 496]
+
+  SEPARATE_LR: false
+
+  LOSS_TYPE: MixLoss
+  MASK_TYPE: orb
+
+  MASK_MODAL: context
+  MASK_CHANNEL: 3
+  MASK_DILATE: 31
+  
+  KERNEL_SIZE: 31
+  KERNEL_SIGMA: 5
+
+  CLIP: 1.0
+
+  LOSS_GAMMA: 0.8
+  MAX_FLOW: 400
+  LOSS_KERNEL_SIZE: 1
+  LOSS_SIGMA: 0.01
+  LOSS_LAMDA: 1
+
+MODEL:
+  FUSION: 
+  FUSION_TYPE: 
+  FUSION_CHANNEL: 256
+
+  LOAD_MODULE: pretrain/raft-chairs.pth
+  FREEZE_MODULE: false
+
+  SMALL: false
+  ABANDON_FNET: false
+  FUSE_CNET: true
+
+  ITERS: 12
+  DROPOUT: 0.0
+
+  ALT_CORR: false
+
+CRITERION:
+  VAL_DATASET: ['chairs', 'sintel']
+
+OPTIMIZER:
+  LR: 0.0004
+  WEIGHT_DECAY: 0.00001
+  EPSILON: 0.00000001
+
+
+SCHEDULER:
+  LR: 0.0004
+
+

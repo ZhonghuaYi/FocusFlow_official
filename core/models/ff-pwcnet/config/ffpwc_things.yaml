@@ -1,0 +1,69 @@
+GLOBAL:
+  NAME: ffpwcnet-things
+  MIXED_PRECISION: false
+
+  SEED: 1234
+  CUDNN_ENABLED: true
+  ALLOW_TF32: true
+  NUM_THREADS: 16
+  NUM_WORKERS: 16
+
+
+TRAIN:
+  STAGE: things
+
+  PRETRAIN: pretrain/ffpwcnet-chairs.pth
+  RESTORE_CHECKPOINT:
+  ADD_NOISE: true
+
+  NUM_STEPS: 500000
+  BATCH_SIZE: 4
+  IMAGE_SIZE: [384, 768]
+
+  SEPARATE_LR: false
+
+  LOSS_TYPE: MixLoss
+  MASK_TYPE: orb
+
+  MASK_MODAL: point
+  MASK_CHANNEL: 3
+  MASK_DILATE: 31
+  
+  KERNEL_SIZE: 31
+  KERNEL_SIGMA: 5
+
+  CLIP: 1.0
+
+  MAX_FLOW: 400
+  LOSS_MODE: pretrain
+  LOSS_WEIGHTS: [0.005, 0.01, 0.02, 0.08, 0.32]
+  LOSS_Q:
+  LOSS_EPSILON:
+  LOSS_KERNEL_SIZE: 1
+  LOSS_SIGMA: 0.01
+  LOSS_LAMDA: 1
+
+MODEL:
+  FUSION: parallel
+  FUSION_TYPE: 1x1conv
+  FUSION_CHANNEL:
+
+  LOAD_MODULE: 
+  FREEZE_MODULE: false
+  DROPOUT: 0.0
+
+  ALT_CORR: false
+
+CRITERION:
+  VAL_DATASET: ['chairs', 'sintel', 'kitti']
+
+OPTIMIZER:
+  LR: 0.0004
+  WEIGHT_DECAY: 0.0004
+  EPSILON: 0.00000001
+
+
+SCHEDULER:
+  LR: 0.0004
+
+

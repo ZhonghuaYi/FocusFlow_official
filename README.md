@@ -12,7 +12,12 @@
   </b>
   <br> <br>
 
-  <a href="https://arxiv.org/abs/2308.07104" target="_blank">Paper</a>
+  <a href="https://ieeexplore.ieee.org/abstract/document/10258386" target="_blank">IEEE Transactions on Intelligent Vehicles</a>
+  <br>
+  <a href="https://arxiv.org/abs/2308.07104" target="_blank">Arxiv</a>
+  <br>
+  <a href="https://www.researchgate.net/profile/Kailun-Yang/publication/374095317_FocusFlow_Boosting_Key-Points_Optical_Flow_Estimation_for_Autonomous_Driving" target="_blank">ResearchGate</a>
+  
 
 ####
 </div>
@@ -29,9 +34,79 @@
 
 ### Update
 - 2023.08.14 Init repository.
+- 2024.1.10 Code release.
 
 ### TODO List
-- [ ] Code release. 
+1. [x] Code release. 
+2. [ ] Pretrained models release.
+3. [ ] Mask data release.
+
+### Setup the environment
+We recommend using Anaconda to set up the environment.
+```bash
+conda create -n focusflow python=3.10
+conda activate focusflow
+pip install -r requirements.txt
+```
+
+### Dataset
+The following datasets are required for training and testing:
+- [FlyingChairs](https://lmb.informatik.uni-freiburg.de/resources/datasets/FlyingChairs.en.html)
+- [FlyingThings3D](https://lmb.informatik.uni-freiburg.de/resources/datasets/SceneFlowDatasets.en.html)
+- [KITTI](http://www.cvlibs.net/datasets/kitti/eval_scene_flow.php?benchmark=flow)
+- [Sintel](http://sintel.is.tue.mpg.de/downloads)
+
+We randomly split the training set of Sintel and KITTI into training and validation sets. The split details are provided in the `Sintel_split.txt` and `KITTI_split.txt` files.
+
+Additionally, we provide the preprocessed keypoints masks for SIFT, ORB, GoodFeature and SiLK in the `data` folder.
+The SIFT, ORB and GoodFeature keypoints are extracted using the [OpenCV](https://opencv.org/) library.
+The SiLK keypoints are extracted using the [SiLK](https://github.com/facebookresearch/silk) library.
+The generating scripts are provided in the `scripts` folder.
+
+By default, the dataset is expected to be stored in the following structure:
+```
+data
+├── FlyingChairs_release
+│   ├── data
+│   ├── FlyingChairs_train_val.txt
+├── FlyingThings3D
+│   ├── frames_cleanpass
+│   ├── frames_finalpass
+│   ├── optical_flow
+├── KITTI
+│   ├── training
+│   │   ├── image_2
+│   │   ├── flow_occ
+│   ├── val
+├── Sintel
+│   ├── training
+│   │   ├── clean
+│   │   ├── final
+│   │   ├── flow
+│   ├── val
+├── mask
+│   ├── FlyingChairs_release
+│   │   ├── orb
+│   │   ├── sift
+│   │   ├── goodfeature
+│   │   ├── silk
+│   ├── FlyingThings3D
+│   ├── KITTI
+│   ├── Sintel
+```
+The `mask` data will be released in the future.
+
+### Usage
+To use the specific model, please run the training or evaluation script in the `core/models/{model_name}` folder.
+
+For example, to train the FocusRAFT model, please run the following command:
+```bash
+cd core/models/ff-raft
+python train.py --yaml configs/experiment/ffraft_chairs_orb.yaml
+```
+
+The pretrained model are supposed to be stored in the `pretrain` folder in each model's folder.
+The pretrained models will be released in the future.
 
 ### Abstract
 Key-point-based scene understanding is fundamental for autonomous driving applications. 
@@ -65,26 +140,24 @@ Notably, FocusFlow yields competitive or superior performances rivaling the orig
     <div align=center><img src="assets/framework.png" width="1000" height="415" /></div>
 <br><br>
 
+### Reference and License
+The code is based on the following open-source project:
 
-[comment]: <> (### Citation)
+- [RAFT](https://github.com/princeton-vl/RAFT) (BSD 3-Clause License)
+- [FlowFormer](https://github.com/drinkingcoder/FlowFormer-Official) (Apache-2.0 License)
+- [pytorch-pwc](https://github.com/sniklaus/pytorch-pwc) (GPL-3.0 License)
 
-[comment]: <> (   If you find our paper or repo useful, please consider citing our paper:)
+Due to the use of the above open-source projects, our code is under the GPL-3.0 License.
 
-[comment]: <> (   ```bibtex)
-
-[comment]: <> (   @article{shi2022flowlens,)
-
-[comment]: <> (  title={FlowLens: Seeing Beyond the FoV via Flow-guided Clip-Recurrent Transformer},)
-
-[comment]: <> (  author={Shi, Hao and Jiang, Qi and Yang, Kailun and Yin, Xiaoting and Wang, Kaiwei},)
-
-[comment]: <> (  journal={arXiv preprint arXiv:2211.11293},)
-
-[comment]: <> (  year={2022})
-
-[comment]: <> (})
-
-[comment]: <> (   ```)
+### Citation
+```
+[1]  @article{yi2023focusflow,
+        title={FocusFlow: Boosting Key-Points Optical Flow Estimation for Autonomous Driving},
+        journal={IEEE Transactions on Intelligent Vehicles},
+        year={2023},
+        publisher={IEEE}
+    }
+```
 
 ### Contact
 Feel free to contact me if you have additional questions or have interests in collaboration. Please drop me an email at yizhonghua@zju.edu.cn. =)

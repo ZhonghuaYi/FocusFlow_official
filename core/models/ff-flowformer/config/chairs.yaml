@@ -1,0 +1,97 @@
+GLOBAL:
+  NAME: experiment-ff-flowformer-chairs
+  MIXED_PRECISION: false
+
+  SEED: 1234
+  CUDNN_ENABLED: true
+  ALLOW_TF32: true
+  NUM_THREADS: 16
+  NUM_WORKERS: 12
+
+
+TRAIN:
+  STAGE: chairs
+  RESTORE_CHECKPOINT: 
+  ADD_NOISE: true
+
+  # 需要与TRAINER.num_steps一致
+  NUM_STEPS: 120000
+  BATCH_SIZE: 6
+  IMAGE_SIZE: [368, 496]
+
+  SEPARATE_LR: false
+
+  LOSS_TYPE: MixLoss
+  MASK_TYPE: orb
+
+  MASK_MODAL: point
+  MASK_CHANNEL: 3
+  MASK_DILATE: 31
+  
+  KERNEL_SIZE: 31
+  KERNEL_SIGMA: 5
+
+  LOSS_GAMMA: 0.8
+  MAX_FLOW: 400
+  LOSS_KERNEL_SIZE: 1
+  LOSS_SIGMA: 0.01
+  LOSS_LAMDA: 1
+
+MODEL:
+  FUSION: 
+
+  # latentcostformer
+  pe: linear
+  dropout: 0.0
+  encoder_latent_dim: 256 # in twins, this is 256
+  query_latent_dim: 64
+  cost_latent_input_dim: 64
+  cost_latent_token_num: 8
+  cost_latent_dim: 128
+  predictor_dim: 128
+  motion_feature_dim: 209 # use concat, so double query_latent_dim
+  arc_type: transformer
+  cost_heads_num: 1
+  # encoder
+  pretrain: True
+  context_concat: False
+  encoder_depth: 3
+  feat_cross_attn: False
+  patch_size: 8
+  patch_embed: single
+  no_pe: False
+  gma: GMA
+  kernel_size: 9
+  rm_res: True
+  vert_c_dim: 64
+  cost_encoder_res: True
+  cnet: twins
+  fnet: twins
+  only_global: False
+  add_flow_token: True
+  use_mlp: False
+  vertical_conv: False
+  # decoder
+  decoder_depth: 12
+  critical_params: ['cost_heads_num', 'vert_c_dim', 'cnet', 'pretrain' , 'add_flow_token', 'encoder_depth', 'gma', 'cost_encoder_res']
+
+  pretrain_model: pretrain/chairs.pth
+  load_former: 
+
+  ALT_CORR: false
+
+CRITERION:
+  VAL_DATASET: ['chairs', 'sintel', 'kitti']
+
+TRAINER:
+  scheduler: OneCycleLR
+
+  optimizer: adamw
+  canonical_lr: 0.00025
+  adamw_decay: 0.0001
+  clip: 1.0
+  num_steps: 120000
+  epsilon: 0.00000001
+  anneal_strategy: linear
+
+

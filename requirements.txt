@@ -1,0 +1,12 @@
+cupy
+einops==0.7.0
+loguru
+numpy==1.23.5
+opencv_python==4.7.0.72
+Pillow
+PyYAML
+scipy
+timm
+torch==2.0.0
+torchvision==0.15.0
+tqdm==4.65.0
