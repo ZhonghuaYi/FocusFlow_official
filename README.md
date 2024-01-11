@@ -23,7 +23,7 @@
 </div>
 <br>
 <p align="center">:hammer_and_wrench: :construction_worker: :rocket:</p>
-<p align="center">:fire: We will release code and checkpoints in the future. :fire:</p>
+<p align="center">:fire: We will release keypoints mask data and pretrained models in the future. :fire:</p>
 <br>
 
 <div align=center><img src="assets/comparison.png" width="1000" height="361" /></div>
