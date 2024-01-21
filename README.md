@@ -35,11 +35,12 @@
 ### Update
 - 2023.08.14 Init repository.
 - 2024.1.10 Code release.
+- 2024.1.21 Pretrained models and mask data release.
 
 ### TODO List
 1. [x] Code release. 
-2. [ ] Pretrained models release.
-3. [ ] Mask data release.
+2. [x] Pretrained models release.
+3. [x] Mask data release.
 
 ### Setup the environment
 We recommend using Anaconda to set up the environment.
@@ -61,7 +62,7 @@ We randomly split the training set of Sintel and KITTI into training and validat
 Additionally, we provide the preprocessed keypoints masks for SIFT, ORB, GoodFeature and SiLK in the `data` folder.
 The SIFT, ORB and GoodFeature keypoints are extracted using the [OpenCV](https://opencv.org/) library.
 The SiLK keypoints are extracted using the [SiLK](https://github.com/facebookresearch/silk) library.
-The generating scripts are provided in the `scripts` folder.
+The scripts used for generating keypoints masks are provided in the `scripts` folder.
 
 By default, the dataset is expected to be stored in the following structure:
 ```
@@ -94,19 +95,19 @@ data
 │   ├── KITTI
 │   ├── Sintel
 ```
-The `mask` data will be released in the future.
+The `mask` data could be downloaded in [OneDrive](https://1drv.ms/f/s!AlFuh7JTFAc3i-wcIh6mr64hlXm7TA?e=VBIoN5).
 
 ### Usage
 To use the specific model, please run the training or evaluation script in the `core/models/{model_name}` folder.
 
-For example, to train the FocusRAFT model, please run the following command:
+For example, to train the FocusRAFT model for ORB points, please run the following command:
 ```bash
 cd core/models/ff-raft
 python train.py --yaml configs/experiment/ffraft_chairs_orb.yaml
 ```
 
 The pretrained model are supposed to be stored in the `pretrain` folder in each model's folder.
-The pretrained models will be released in the future.
+Pretrained models could be downloaded in [OneDrive](https://1drv.ms/f/s!AlFuh7JTFAc3i-wcIh6mr64hlXm7TA?e=VBIoN5).
 
 ### Abstract
 Key-point-based scene understanding is fundamental for autonomous driving applications. 
