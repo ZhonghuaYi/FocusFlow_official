@@ -23,7 +23,7 @@
 </div>
 <br>
 <p align="center">:hammer_and_wrench: :construction_worker: :rocket:</p>
-<p align="center">:fire: We will release keypoints mask data and pretrained models in the future. :fire:</p>
+<p align="center">:fire: The keypoints mask data and pretrained models are now available. :fire:</p>
 <br>
 
 <div align=center><img src="assets/comparison.png" width="1000" height="361" /></div>
@@ -57,12 +57,12 @@ The following datasets are required for training and testing:
 - [KITTI](http://www.cvlibs.net/datasets/kitti/eval_scene_flow.php?benchmark=flow)
 - [Sintel](http://sintel.is.tue.mpg.de/downloads)
 
-We randomly split the training set of Sintel and KITTI into training and validation sets. The split details are provided in the `Sintel_split.txt` and `KITTI_split.txt` files.
+Since the official KITTI and Sintel benchmark do not provide optical flow benchmark on keypoints, 
+we randomly split the training set of Sintel and KITTI into training and validation sets. The split details are provided in the `Sintel_split.txt` and `KITTI_split.txt` files.
 
 Additionally, we provide the preprocessed keypoints masks for SIFT, ORB, GoodFeature and SiLK in the `data` folder.
-The SIFT, ORB and GoodFeature keypoints are extracted using the [OpenCV](https://opencv.org/) library.
-The SiLK keypoints are extracted using the [SiLK](https://github.com/facebookresearch/silk) library.
-The scripts used for generating keypoints masks are provided in the `scripts` folder.
+The SIFT, ORB and GoodFeature keypoints are extracted using the [OpenCV](https://opencv.org/) library, while the SiLK keypoints are extracted using the [SiLK](https://github.com/facebookresearch/silk) library.
+Scripts used for generating keypoint masks are provided in the `scripts` folder.
 
 By default, the dataset is expected to be stored in the following structure:
 ```
